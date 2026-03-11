@@ -42,10 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/download-privacy', [UserController::class,'download'])->name('download');
     
-    // SECURE
+   
     Route::middleware(['admin'])->prefix('dashboard')->group(function () {
-    // UNSECURE
-    // Route::prefix('dashboard')->group(function () {
+   
         Route::get('/', [AdminController::class,'dashboard'])->name('dashboard');
         Route::get('/articles', [AdminController::class,'articles'])->name('admin.articles');
         Route::get('/users', [AdminController::class,'users'])->name('admin.users');
@@ -55,11 +54,7 @@ Route::middleware(['auth'])->group(function () {
         // Route::post('/users/{id}/toggle', [AdminController::class,'toggleUsersAdmin'])->name('admin.users.toggle');
         // Route::post('/articles/{id}/toggle',[AdminController::class,'toggleArticleStatus'])->name('admin.articles.toggle');
     });
-    // UNSECURE
-    // Route::post('/articles/{articleId}/comments', [CommentController::class, 'store'])->name('comments.store');
-    
-    // SECURE
-    Route::post('/articles/{articleId}/comments', [CommentController::class, 'store'])->middleware(['block.suspicious'])->name('comments.store');
+    Route::post('/articles/{articleId}/comments', [CommentController::class, 'store'])->middleware(['block_suspicious_ips'])->name('comments.store');
 });
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
