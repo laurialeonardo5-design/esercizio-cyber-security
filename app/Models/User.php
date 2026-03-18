@@ -17,7 +17,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-
+    public function files(){
+    return $this->hasMany(File::class);
+    }
     // UNSECURE
     protected $guarded = [];
 

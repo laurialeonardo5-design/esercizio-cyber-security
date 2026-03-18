@@ -7,28 +7,28 @@
           <div class="d-flex flex-column align-items-center">
             <div class="profile-avatar mb-3">
               <img src="{{$user->avatar ? Storage::url("public/images/users/$user->id/" . $user->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=2ECC71&color=fff'}}"
-                   class="avatar-img shadow border border-3 border-info"
-                   alt="Avatar"
-                   style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto;">
+              class="avatar-img shadow border border-3 border-info"
+              alt="Avatar"
+              style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto;">
             </div>
             <h2 class="fw-bold mb-1">{{$user->name}}</h2>
             <div class="text-muted mb-3">{{$user->email}}</div>
-              <form method="POST" action="{{route('change.img')}}" class="mb-3" enctype="multipart/form-data">
-                  @csrf
-                  <label for="">Change profile picture</label>
-                  <div class="mb-3">
-                      <input type="file" class="form-control" aria-label="file example" name="avatar" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Save</button>
-              </form>
-              <!-- <form method="POST" action="{{route('change.img')}}" class="d-inline-block" enctype="multipart/form-data">
-                @csrf
-                <label class="form-label fw-semibold">Change profile picture</label>
-                <div class="input-group mb-2 justify-content-center">
-                  <input type="file" class="form-control w-auto" name="avatar" required>
-                  <button type="submit" class="btn btn-outline-primary ms-2">Save</button>
-                </div>
-              </form> -->
+            <form method="POST" action="{{route('change.img')}}" class="mb-3" enctype="multipart/form-data">
+              @csrf
+              <label for="">Change profile picture</label>
+              <div class="mb-3">
+                <input type="file" class="form-control" aria-label="file example" name="avatar" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            <!-- <form method="POST" action="{{route('change.img')}}" class="d-inline-block" enctype="multipart/form-data">
+              @csrf
+              <label class="form-label fw-semibold">Change profile picture</label>
+              <div class="input-group mb-2 justify-content-center">
+                <input type="file" class="form-control w-auto" name="avatar" required>
+                <button type="submit" class="btn btn-outline-primary ms-2">Save</button>
+              </div>
+            </form> -->
           </div>
         </div>
         <!-- Articles Section -->
@@ -46,21 +46,21 @@
               </thead>
               <tbody>
                 @foreach ($user->articles as $article)
-                  <tr>
-                    <td>{{$article->id}}</td>
-                    <td><a href="{{route('articles.show',$article->id)}}" class="fw-semibold text-primary">{{$article->title}}</a></td>
-                    <td>
-                      @if($article->published)
-                        <span class="badge bg-success">Yes</span>
-                      @else
-                        <span class="badge bg-secondary">No</span>
-                      @endif
-                    </td>
-                    <td>
-                      <a href="{{route('articles.edit',$article->id)}}" class="btn btn-sm btn-outline-warning me-2" title="Edit"><i class="bi bi-pencil"></i></a>
-                      <a href="{{route('articles.destroy',$article->id)}}" class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></a>
-                    </td>
-                  </tr>
+                <tr>
+                  <td>{{$article->id}}</td>
+                  <td><a href="{{route('articles.show',$article->id)}}" class="fw-semibold text-primary">{{$article->title}}</a></td>
+                  <td>
+                    @if($article->published)
+                    <span class="badge bg-success">Yes</span>
+                    @else
+                    <span class="badge bg-secondary">No</span>
+                    @endif
+                  </td>
+                  <td>
+                    <a href="{{route('articles.edit',$article->id)}}" class="btn btn-sm btn-outline-warning me-2" title="Edit"><i class="bi bi-pencil"></i></a>
+                    <a href="{{route('articles.destroy',$article->id)}}" class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></a>
+                  </td>
+                </tr>
                 @endforeach
               </tbody>
             </table>
@@ -89,6 +89,11 @@
           <a href="{{route('download','filename=privacy.pdf')}}" class="d-block mb-2 text-decoration-none text-info fw-semibold"><i class="bi bi-file-earmark-pdf me-2"></i>Privacy policy</a>
           <a href="{{route('download','filename=cookie-policy.pdf')}}" class="d-block text-decoration-none text-info fw-semibold"><i class="bi bi-file-earmark-pdf me-2"></i>Cookie policy</a>
         </div>
+        {{-- <form action="" method="post" enctype="multipart/form-data">
+          <label for="mioFile">Seleziona il documento:</label>
+          <input type="file" name="fileInviato" id="mioFile">
+          <button type="submit">Invia File</button>
+        </form> --}}
       </div>
     </div>
   </div>

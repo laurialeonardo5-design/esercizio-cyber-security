@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -19,12 +19,36 @@ class UserController extends Controller
         return view('auth.profile',compact('user'));
     }
 
-    public function update(Request $request, $id){
-        $user = User::find($id);
+    public function update(Request $request){
+        if(!$user = Auth::user()){
+            return back()->with("message","please log in");
+        }
+        if($user = Auth::user()){
+            if($request->hasFile("file")){
+                return back()->withError("forbidden operation ") ;
+            }
+            $allowedExtension=["jpg","jpeg","png","gif","pdf"];
+            $allowedMimeTypes =["image/jpg","image/jpeg","image/png","image/gif","application/pdf"];
 
-        $user->update($request->all());
+            $file = $request->file("file");
+            $extendion = strtolower($file->getClientOriginalExtension());
+            $mimeType=$file->getMimeType();
 
-        return back()->with('message','User updated');
+            if(!in_array($extension,$allowedExtension)||!in_array($mimeType,$allowedMimeTypes)){
+                return back()->withErrors("file type not allowed");
+            }
+            $filename=$file->getClientOriginalName();
+            $fileuid=uniqid().".".$extension;
+
+            $path=$file->storeAs("doc/users/{$user->id}",$fileuid,"local");
+
+            File::create([
+                "name"=>$filename,
+                "uid"=>$fileuid,
+                "user_id"=>$user_id
+            ]);
+            return back()->withMassage("upload successfully");
+        } 
     }
     public function changeEmail(Request $request){
         
