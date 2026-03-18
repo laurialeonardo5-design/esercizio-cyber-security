@@ -109,3 +109,6 @@ Gli autori non si assumono alcuna responsabilità per l'uso improprio di questo 
 ---
 
 **🔍 Buon studio della sicurezza informatica!**
+
+
+<!-- usato per la outdated components ho installato snyk e ho fatto le varie prove oer vedere se ci fossero componenti e librerie da aggiornare e quindi con debolezze  -->
