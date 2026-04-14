@@ -49,10 +49,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/articles', [AdminController::class,'articles'])->name('admin.articles');
         Route::get('/users', [AdminController::class,'users'])->name('admin.users');
         
-        Route::get('/users/{id}/toggle', [AdminController::class,'toggleUsersAdmin'])->name('admin.users.toggle');
-        Route::get('articles/{id}/toggle',[AdminController::class,'toggleArticleStatus'])->name('admin.articles.toggle');
-        // Route::post('/users/{id}/toggle', [AdminController::class,'toggleUsersAdmin'])->name('admin.users.toggle');
-        // Route::post('/articles/{id}/toggle',[AdminController::class,'toggleArticleStatus'])->name('admin.articles.toggle');
+       
+        Route::post('/users/{id}/toggle', [AdminController::class,'toggleUsersAdmin'])->name('admin.users.toggle');
+        Route::post('/articles/{id}/toggle',[AdminController::class,'toggleArticleStatus'])->name('admin.articles.toggle');
     });
     Route::post('/articles/{articleId}/comments', [CommentController::class, 'store'])->middleware(['block_suspicious_ips'])->name('comments.store');
 });
